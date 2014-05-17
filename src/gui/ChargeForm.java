@@ -61,10 +61,16 @@ public class ChargeForm extends UserTransactionForm {
     String cmd = e.getActionCommand();
     
     if(cmd.equals(R.CMD_ADD_CHARGE)){
-      System.out.println("OK");
+      if(!this.getIsLoaded()){
+        return;
+      }
+      
       try {
-        Double charge = this.user.getCharge() + Double.parseDouble(fldChargeMount.getText());
-        this.userModel.addCharge(this.user, charge);
+        Double charge = Double.parseDouble(fldChargeMount.getText());
+        Double tickets = Math.floor( charge / smio.SMIO.price );
+        this.user.setCharge( this.user.getCharge() + charge );
+        this.userModel.addCharge(this.user, charge, "charge", tickets);
+        JOptionPane.showMessageDialog(this, String.format(R.STR_CHARGE_SUCCESS, charge), R.STR_CHARGE, JOptionPane.INFORMATION_MESSAGE);
       } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, String.format(R.ERROR_SAVE_FAILS, ex.getMessage()), R.STR_ERROR, JOptionPane.ERROR_MESSAGE);
       }

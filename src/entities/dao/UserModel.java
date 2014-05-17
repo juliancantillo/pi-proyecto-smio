@@ -153,17 +153,17 @@ public class UserModel implements DBModel {
     return user;
   }
 
-  public int addCharge(User user, Double charge) throws SQLException {
-    String sql = String.format("UPDATE users SET  charge=%s WHERE users.id = %s;", charge, user.getCardId());
+  public int addCharge(User user, Double charge, String type, Double tickets) throws SQLException {
+    String sql = String.format("UPDATE users SET charge=%s WHERE users.id = %s;", user.getCharge(), user.getCardId());
 
-    chargeLog(user, charge);
+    chargeLog(user, charge, type, tickets);
 
     Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
     return st.executeUpdate(sql);
   }
 
-  public void chargeLog(User user, Double charge) throws SQLException {
-    String sql = String.format("INSERT INTO user_recharges(charge, user_id) VALUES (%s, %s);", charge, user.getCardId());
+  public void chargeLog(User user, Double charge, String type, Double tickets) throws SQLException {
+    String sql = String.format("INSERT INTO user_recharges( user_id, charge, charge_type, charge_tickets) VALUES (%s, %s, '%s', %s);", user.getCardId(), charge, type, tickets);
 
     System.out.println(sql);
 

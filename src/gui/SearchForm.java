@@ -61,6 +61,7 @@ public class SearchForm extends JFrame implements ActionListener, ListSelectionL
     add(new Gap(R.VGAP), pos.nextRow());
     add(pnlResults(), pos.nextRow().expandH().expandH());
 
+    setSize(400, 350);
   }
 
   private JPanel pnlSearchUsers() {

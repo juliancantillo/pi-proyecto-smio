@@ -94,6 +94,8 @@ public class R {
   public static String STR_SEARCH_BUSES = "Buscar Buses";
   public static String STR_SEARCH_LINES = "Buscar Rutas";
   public static String STR_SEARCH_USERS = "Buscar Usuarios";
+  public static String STR_CHARGE_SUCCESS = "Se cargó con exito %s creditos al usuario";
+  public static String STR_UNCHARGE_SUCCESS = "Se descontaron %s pasajes al usuario";
   
   
 

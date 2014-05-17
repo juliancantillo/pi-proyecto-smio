@@ -33,11 +33,11 @@ public abstract class UserTransactionForm extends JFrame implements ActionListen
 
   public User user;
   public UserModel userModel;
-  private boolean isNew;
   private JTextField fldIdentification;
   private JTextField fldName;
   private JTextField fldCharge;
   private JTextField fldSearchId;
+  private boolean isLoaded = false;
 
 
   public UserTransactionForm() {
@@ -165,6 +165,7 @@ public abstract class UserTransactionForm extends JFrame implements ActionListen
     fldName.setText(String.format("%s %s",user.getFirstname(), user.getLastname()));
     fldCharge.setText(String.valueOf(user.getCharge()));
     
+    isLoaded = true;
   }
   
   private void cleanData() {
@@ -173,10 +174,15 @@ public abstract class UserTransactionForm extends JFrame implements ActionListen
     fldName.setText("");
     fldCharge.setText("");
     
+    isLoaded = false;
+    
     user = new User();
   }
-  
 
+  public boolean getIsLoaded() {
+    return isLoaded;
+  }
+  
   @Override
   public void actionPerformed(ActionEvent e) {
     String cmd = e.getActionCommand();
